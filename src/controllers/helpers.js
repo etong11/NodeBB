@@ -516,6 +516,7 @@ const writeReturnPayload = (returnPayload, payload) => {
 };
 
 helpers.formatApiResponse = async (statusCode, res, payload) => {
+	console.log('Emma Tong');
 	if (res.req.method === 'HEAD') {
 		return res.sendStatus(statusCode);
 	}
