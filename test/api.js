@@ -193,6 +193,12 @@ describe('API', async () => {
 		await user.email.confirmByUid(unprivUid);
 		mocks.get['/api/confirm/{code}'][0].example = await db.get(`confirm:byUid:${emailConfirmationUid}`);
 
+		// Ban a user
+		const banUid = await user.create({ username: 'toban', password: '123456' });
+		await user.bans.ban('123456x');
+		await user.bans.ban(banUid);
+		
+
 		for (let x = 0; x < 4; x++) {
 			// eslint-disable-next-line no-await-in-loop
 			await user.create({ username: 'deleteme', password: '123456' }); // for testing of DELETE /users (uids 5, 6) and DELETE /user/:uid/account (uid 7)
@@ -669,3 +675,15 @@ describe('API', async () => {
 		});
 	}
 });
+
+// // Create a test to cover the switch case: case '[[error:user-banned]]' located in src/controllers/helpers.js
+
+// describe('helpers', () => {
+// 	describe('handleError', () => {
+// 		it('should handle the "user-banned" error', () => {
+// 			const error = '[[error:user-banned]]';
+// 			const result = helpers.handleError(error);
+// 			assert.strictEqual(result, 'User is banned');
+// 		});
+// 	});
+// });

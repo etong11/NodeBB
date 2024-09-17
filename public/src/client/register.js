@@ -135,6 +135,7 @@ define('forum/register', [
 				if (results.every(obj => obj.status === 'rejected')) {
 					showSuccess(usernameInput, username_notify, successIcon);
 				} else {
+					console.log(username_notify)
 					showError(usernameInput, username_notify, '[[error:username-taken]]');
 				}
 
